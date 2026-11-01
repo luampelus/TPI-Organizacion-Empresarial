@@ -15,6 +15,7 @@ Documentación del Trabajo Práctico Integrador (TPI) sobre **Cerveza Lagarto Fo
 ## Enlaces
 
 - **Repositorio:** https://github.com/luampelus/TPI-Organizacion-Empresarial
+- **Tablero de gestión (GitHub Projects):** https://github.com/users/luampelus/projects/1/views/1
 
 ## Descripción del sistema
 
