@@ -60,7 +60,7 @@ Usé Claude (de Anthropic) como **herramienta de apoyo** durante el TPI: para or
 
 ### Cómo estructuré los prompts
 
-1. **Contexto real primero.** Le pasé la consigna, la plantilla, las entregas anteriores y la información de lagarto-pos (que desarrollo yo), para que trabajara sobre datos verificables y no inventara.
+1. **Contexto real primero.** Partí de información real del negocio y de lagarto-pos (que desarrollo yo), y de mis entregas anteriores, para que trabajara sobre datos verificables y no inventara.
 2. **Preguntas antes de redactar.** Le pedí que me consultara lo que necesitara saber (estructura de la empresa, puestos, estado del proyecto). Así el contenido refleja la organización real y no suposiciones del modelo.
 3. **Revisión contra la rúbrica.** Le pedí una evaluación crítica según la rúbrica de la cátedra para detectar puntos débiles antes de entregar.
 4. **Ajustes de redacción.** Marqué las frases que no sonaban naturales y las reescribí con el vocabulario que usamos en el negocio.
