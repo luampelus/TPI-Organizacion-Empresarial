@@ -58,12 +58,12 @@ La próxima etapa, planificada en la Entrega N.º 2, agrega:
 
 Usé un asistente de IA (Claude, de Anthropic) durante todo el TPI. Abajo explico qué le pedí, por qué lo pedí así y qué corregí yo.
 
-### Cómo armé los prompts
+### Cómo estructuré los prompts
 
-1. **Le di datos reales en vez de pedirle que inventara.** Le pasé la consigna, la plantilla, las entregas anteriores y el contexto de lagarto-pos (que desarrollo yo). Por ejemplo: *"Todo el contexto de lagarto-pos está en otro chat… podés verlo?"* y, para la Entrega 4, *"Me ayudás con la entrega del TPI 4? Te adjunto los archivos necesarios"*.
-2. **Le pedí que me preguntara antes de escribir.** En la Entrega 2 le propuse: *"En vez de que revise todo al final, ¿querés preguntarme lo que necesites saber?"*. En la Entrega 3 me preguntó cómo están organizados los socios, si hay encargados y qué puestos hay. Así el contenido sale de la empresa real y no de suposiciones del modelo.
-3. **Le pedí que se evaluara con la rúbrica.** Por ejemplo: *"Si fueses la profe, ¿cuánto me ponés?"*. Lo usé para encontrar puntos débiles, no como nota real.
-4. **Pedí cambios puntuales de redacción.** Por ejemplo: *"Esas palabras me suenan poco natural"*, para que el texto suene como escribo yo.
+1. **Contexto real primero.** Le pasé la consigna, la plantilla, las entregas anteriores y la información de lagarto-pos (que desarrollo yo), para que trabajara sobre datos verificables y no inventara.
+2. **Preguntas antes de redactar.** Le pedí que me consultara lo que necesitara saber (estructura de la empresa, puestos, estado del proyecto). Así el contenido refleja la organización real y no suposiciones del modelo.
+3. **Revisión contra la rúbrica.** Le pedí una evaluación crítica según la rúbrica de la cátedra para detectar puntos débiles antes de entregar.
+4. **Ajustes de redacción.** Marqué las frases que no sonaban naturales y las reescribí con el vocabulario que usamos en el negocio.
 
 ### Correcciones que hice sobre lo que generó la IA
 
