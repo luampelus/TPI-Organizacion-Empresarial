@@ -63,7 +63,6 @@ Usé Claude (de Anthropic) como **herramienta de apoyo** durante el TPI: para or
 1. **Contexto real primero.** Partí de información real del negocio y de lagarto-pos (que desarrollo yo), y de mis entregas anteriores, para que trabajara sobre datos verificables y no inventara.
 2. **Preguntas antes de redactar.** Le pedí que me consultara lo que necesitara saber (estructura de la empresa, puestos, estado del proyecto). Así el contenido refleja la organización real y no suposiciones del modelo.
 3. **Revisión contra la rúbrica.** Le pedí una evaluación crítica según la rúbrica de la cátedra para detectar puntos débiles antes de entregar.
-4. **Ajustes de redacción.** Marqué las frases que no sonaban naturales y las reescribí con el vocabulario que usamos en el negocio.
 
 ### Correcciones que hice sobre lo que generó la IA
 
@@ -79,7 +78,6 @@ Usé Claude (de Anthropic) como **herramienta de apoyo** durante el TPI: para or
 | N.º 3 | Puso "despacho de pedidos" y "ayudante de plancha" como dos puestos | Es una sola persona: Parrilla tiene 4 empleados y Pizza tiene 2 |
 | N.º 3 | Reducía la barra de Parrilla a "cerveza tirada" | Los tirados también incluyen tinto y vermouth. Cambié el puesto a "barra de bebidas tiradas" |
 | N.º 3 | Reparto de tareas de los socios incompleto | Agregué que un socio trae aderezos y verduras, y saqué "luces" porque no es algo recurrente |
-| Todas | Frases poco naturales ("negocio gastronómico", "cruzando los cuadrantes", "insumos") | Las reemplacé por cómo hablamos en el negocio: "foodtrucks", "mercadería" |
 
 ### Lo que aporté yo
 
