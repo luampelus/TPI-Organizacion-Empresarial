@@ -68,16 +68,10 @@ Usé Claude (de Anthropic) como **herramienta de apoyo** durante el TPI: para or
 
 | Entrega | Lo que propuso la IA | Lo que corregí yo |
 |---|---|---|
-| N.º 2 | Planteaba como proyecto nuevo el registro de mermas | Las mermas ya existían en el sistema y llegaban en vivo al panel. Cambié el proyecto a costos, ganancia por producto y acceso restringido |
-| N.º 2 | En el FODA ponía como fortaleza "base para calcular ganancias" y como debilidad "no calcula ganancias" | Era una contradicción. Saqué la fortaleza |
-| N.º 2 | Ponía como oportunidad que "los dueños pueden ajustar promos con datos de ganancia" | Eso es un resultado del proyecto, no algo del entorno. Lo cambié por una oportunidad externa |
-| N.º 2 | Plazo de 12 semanas | Lo ajusté a 8 semanas, según mi disponibilidad real |
-| N.º 2 | No mencionaba un riesgo real | Agregué que el historial y el stock se respaldan en la cuenta de Chrome y que hay que cuidar las claves |
-| N.º 2 | Bibliografía con libros y ediciones que no pude verificar | La saqué para no citar fuentes posiblemente inventadas. Dejé solo los apuntes de la unidad |
-| N.º 2 | En las siglas puso "dueños y encargados" | En la empresa no hay encargados formales. Lo aclaré en la Entrega 3 |
-| N.º 3 | Puso "despacho de pedidos" y "ayudante de plancha" como dos puestos | Es una sola persona: Parrilla tiene 4 empleados y Pizza tiene 2 |
-| N.º 3 | Reducía la barra de Parrilla a "cerveza tirada" | Los tirados también incluyen tinto y vermouth. Cambié el puesto a "barra de bebidas tiradas" |
-| N.º 3 | Reparto de tareas de los socios incompleto | Agregué que un socio trae aderezos y verduras, y saqué "luces" porque no es algo recurrente |
+| N.º 2 | Planteaba como proyecto nuevo el registro de mermas | Ya existía en el sistema. Cambié el proyecto a costos y ganancia por producto |
+| N.º 2 | El FODA tenía una fortaleza que contradecía una debilidad | Saqué la fortaleza contradictoria |
+| N.º 2 | Bibliografía con libros que no pude verificar | La saqué y dejé solo los apuntes de la unidad |
+| N.º 3 | Separaba en dos puestos lo que hace una sola persona | Corregí el organigrama: 4 empleados en Parrilla y 2 en Pizza |
 
 ### Lo que aporté yo
 
