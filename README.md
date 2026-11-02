@@ -56,7 +56,7 @@ La próxima etapa, planificada en la Entrega N.º 2, agrega:
 
 ## Declaración de Uso de IA
 
-Usé un asistente de IA (Claude, de Anthropic) durante todo el TPI. Abajo explico qué le pedí, por qué lo pedí así y qué corregí yo.
+Usé Claude (de Anthropic) como **herramienta de apoyo** durante el TPI: para ordenar el trabajo según cada consigna, generar borradores de redacción y de diagramas, y agilizar las tareas de Git y GitHub. El análisis del caso, las decisiones del proyecto y la revisión final son míos. Abajo detallo cómo lo usé y qué corregí.
 
 ### Cómo estructuré los prompts
 
@@ -81,8 +81,9 @@ Usé un asistente de IA (Claude, de Anthropic) durante todo el TPI. Abajo explic
 | N.º 3 | Reparto de tareas de los socios incompleto | Agregué que un socio trae aderezos y verduras, y saqué "luces" porque no es algo recurrente |
 | Todas | Frases poco naturales ("negocio gastronómico", "cruzando los cuadrantes", "insumos") | Las reemplacé por cómo hablamos en el negocio: "foodtrucks", "mercadería" |
 
-### Qué no hizo la IA
+### Lo que aporté yo
 
-- No tuvo acceso al código de lagarto-pos. Los campos del diccionario de datos son **conceptuales** y los validé contra cómo funciona el sistema (medios de pago, ventas editables, mermas con el botón "−").
-- No decidió el proyecto, los plazos, la estructura de la empresa ni los datos operativos. Eso sale de mi trabajo en los foodtrucks.
-- Los errores que hayan quedado son míos: revisé cada entrega antes de subirla.
+- **El caso y los datos:** la estructura de la empresa, los puestos, el funcionamiento de cada foodtruck y los problemas del día a día salen de mi trabajo en Cerveza Lagarto Foodtruck.
+- **Las decisiones del proyecto:** el alcance de la próxima etapa de lagarto-pos, los plazos según mi disponibilidad real y el estado real de cada historia de usuario.
+- **La validación técnica:** el asistente no tuvo acceso al código de lagarto-pos. Los campos del diccionario de datos son conceptuales y los validé contra cómo funciona el sistema que desarrollo (medios de pago, ventas editables, mermas con el botón "−").
+- **La revisión:** revisé cada entrega antes de subirla y el Pull Request del BPMN antes de integrarlo. Los errores que hayan quedado son míos.
