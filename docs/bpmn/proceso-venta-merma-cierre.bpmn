@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_Lagarto" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.31.1">
+  <bpmn:collaboration id="Collaboration_Lagarto">
+    <bpmn:participant id="Participant_Cliente" name="Cliente" />
+    <bpmn:participant id="Participant_Empresa" name="Cerveza Lagarto Foodtruck" processRef="Process_Venta" />
+    <bpmn:messageFlow id="M1" name="pedido" sourceRef="Participant_Cliente" targetRef="Start_Pedido" />
+    <bpmn:messageFlow id="M2" name="pago" sourceRef="Participant_Cliente" targetRef="Task_Cobrar" />
+    <bpmn:messageFlow id="M3" name="pedido listo" sourceRef="Task_Entregar" targetRef="Participant_Cliente" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_Venta" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_1">
+      <bpmn:lane id="Lane_Caja" name="Caja">
+        <bpmn:flowNodeRef>Start_Pedido</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Cargar</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Ofrecer</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Cobrar</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Start_Turno</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Cierre</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Cocina" name="Cocina y despacho">
+        <bpmn:flowNodeRef>Task_Preparar</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gw_Merma</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Entregar</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End_Entregado</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Sistema" name="Sistema lagarto-pos">
+        <bpmn:flowNodeRef>Task_Stock</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gw_Stock</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Registrar</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Merma</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End_Cierre</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gw_Permiso</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End_Denegado</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Mostrar</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Ganancia</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Direccion" name="Dirección (socios)">
+        <bpmn:flowNodeRef>Start_Consulta</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Clave</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Decidir</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End_Decision</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="Start_Pedido" name="Llega un pedido">
+      <bpmn:outgoing>F1</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="Start_Pedido_def" />
+    </bpmn:startEvent>
+    <bpmn:task id="Task_Cargar" name="Cargar el pedido en lagarto-pos">
+      <bpmn:incoming>F1</bpmn:incoming>
+      <bpmn:incoming>F5</bpmn:incoming>
+      <bpmn:outgoing>F2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_Stock" name="Verificar el stock">
+      <bpmn:incoming>F2</bpmn:incoming>
+      <bpmn:outgoing>F3</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gw_Stock" name="¿Hay stock?">
+      <bpmn:incoming>F3</bpmn:incoming>
+      <bpmn:outgoing>F4</bpmn:outgoing>
+      <bpmn:outgoing>F6</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_Ofrecer" name="Ofrecer otro producto">
+      <bpmn:incoming>F4</bpmn:incoming>
+      <bpmn:outgoing>F5</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_Cobrar" name="Cobrar el pedido">
+      <bpmn:incoming>F6</bpmn:incoming>
+      <bpmn:outgoing>F7</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_Registrar" name="Registrar la venta con el costo vigente y descontar stock">
+      <bpmn:incoming>F7</bpmn:incoming>
+      <bpmn:outgoing>F8</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_Preparar" name="Preparar el pedido">
+      <bpmn:incoming>F8</bpmn:incoming>
+      <bpmn:incoming>F11</bpmn:incoming>
+      <bpmn:outgoing>F9</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gw_Merma" name="¿Hubo merma?">
+      <bpmn:incoming>F9</bpmn:incoming>
+      <bpmn:outgoing>F10</bpmn:outgoing>
+      <bpmn:outgoing>F12</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_Merma" name="Registrar la merma (botón −) y su costo">
+      <bpmn:incoming>F10</bpmn:incoming>
+      <bpmn:outgoing>F11</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_Entregar" name="Entregar el pedido">
+      <bpmn:incoming>F12</bpmn:incoming>
+      <bpmn:outgoing>F13</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="End_Entregado" name="Pedido entregado">
+      <bpmn:incoming>F13</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:startEvent id="Start_Turno" name="Fin del turno">
+      <bpmn:outgoing>F14</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Start_Turno_def" />
+    </bpmn:startEvent>
+    <bpmn:task id="Task_Cierre" name="Hacer el cierre de caja">
+      <bpmn:incoming>F14</bpmn:incoming>
+      <bpmn:outgoing>F15</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="End_Cierre" name="Cierre registrado">
+      <bpmn:incoming>F16</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:startEvent id="Start_Consulta" name="Quiere ver la ganancia">
+      <bpmn:outgoing>F17</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Task_Clave" name="Ingresar al reporte con clave">
+      <bpmn:incoming>F17</bpmn:incoming>
+      <bpmn:outgoing>F18</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gw_Permiso" name="¿Tiene permiso?">
+      <bpmn:incoming>F18</bpmn:incoming>
+      <bpmn:outgoing>F19</bpmn:outgoing>
+      <bpmn:outgoing>F20</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="End_Denegado" name="Acceso denegado">
+      <bpmn:incoming>F19</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="Task_Mostrar" name="Mostrar la ganancia por producto">
+      <bpmn:incoming>F20</bpmn:incoming>
+      <bpmn:outgoing>F21</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_Decidir" name="Decidir precios y compras">
+      <bpmn:incoming>F21</bpmn:incoming>
+      <bpmn:outgoing>F22</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="End_Decision" name="Decisión&#10; tomada">
+      <bpmn:incoming>F22</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="F1" sourceRef="Start_Pedido" targetRef="Task_Cargar" />
+    <bpmn:sequenceFlow id="F2" sourceRef="Task_Cargar" targetRef="Task_Stock" />
+    <bpmn:sequenceFlow id="F3" sourceRef="Task_Stock" targetRef="Gw_Stock" />
+    <bpmn:sequenceFlow id="F4" name="No" sourceRef="Gw_Stock" targetRef="Task_Ofrecer" />
+    <bpmn:sequenceFlow id="F5" sourceRef="Task_Ofrecer" targetRef="Task_Cargar" />
+    <bpmn:sequenceFlow id="F6" name="Sí" sourceRef="Gw_Stock" targetRef="Task_Cobrar" />
+    <bpmn:sequenceFlow id="F7" sourceRef="Task_Cobrar" targetRef="Task_Registrar" />
+    <bpmn:sequenceFlow id="F8" sourceRef="Task_Registrar" targetRef="Task_Preparar" />
+    <bpmn:sequenceFlow id="F9" sourceRef="Task_Preparar" targetRef="Gw_Merma" />
+    <bpmn:sequenceFlow id="F10" name="Sí" sourceRef="Gw_Merma" targetRef="Task_Merma" />
+    <bpmn:sequenceFlow id="F11" sourceRef="Task_Merma" targetRef="Task_Preparar" />
+    <bpmn:sequenceFlow id="F12" name="No" sourceRef="Gw_Merma" targetRef="Task_Entregar" />
+    <bpmn:sequenceFlow id="F13" sourceRef="Task_Entregar" targetRef="End_Entregado" />
+    <bpmn:sequenceFlow id="F14" sourceRef="Start_Turno" targetRef="Task_Cierre" />
+    <bpmn:sequenceFlow id="F15" sourceRef="Task_Cierre" targetRef="Task_Ganancia" />
+    <bpmn:sequenceFlow id="F16" sourceRef="Task_Ganancia" targetRef="End_Cierre" />
+    <bpmn:sequenceFlow id="F17" sourceRef="Start_Consulta" targetRef="Task_Clave" />
+    <bpmn:sequenceFlow id="F18" sourceRef="Task_Clave" targetRef="Gw_Permiso" />
+    <bpmn:sequenceFlow id="F19" name="No" sourceRef="Gw_Permiso" targetRef="End_Denegado" />
+    <bpmn:sequenceFlow id="F20" name="Sí" sourceRef="Gw_Permiso" targetRef="Task_Mostrar" />
+    <bpmn:sequenceFlow id="F21" sourceRef="Task_Mostrar" targetRef="Task_Decidir" />
+    <bpmn:sequenceFlow id="F22" sourceRef="Task_Decidir" targetRef="End_Decision" />
+    <bpmn:task id="Task_Ganancia" name="Calcular la ganancia: ventas − costo − mermas">
+      <bpmn:incoming>F15</bpmn:incoming>
+      <bpmn:outgoing>F16</bpmn:outgoing>
+    </bpmn:task>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="Diagram_1">
+    <bpmndi:BPMNPlane id="Plane_1" bpmnElement="Collaboration_Lagarto">
+      <bpmndi:BPMNShape id="Participant_Cliente_di" bpmnElement="Participant_Cliente" isHorizontal="true">
+        <dc:Bounds x="160" y="40" width="2560" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_Empresa_di" bpmnElement="Participant_Empresa" isHorizontal="true">
+        <dc:Bounds x="160" y="140" width="2560" height="560" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Direccion_di" bpmnElement="Lane_Direccion" isHorizontal="true">
+        <dc:Bounds x="190" y="560" width="2530" height="140" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Sistema_di" bpmnElement="Lane_Sistema" isHorizontal="true">
+        <dc:Bounds x="190" y="420" width="2530" height="140" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Cocina_di" bpmnElement="Lane_Cocina" isHorizontal="true">
+        <dc:Bounds x="190" y="280" width="2530" height="140" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Caja_di" bpmnElement="Lane_Caja" isHorizontal="true">
+        <dc:Bounds x="190" y="140" width="2530" height="140" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Start_Pedido_di" bpmnElement="Start_Pedido">
+        <dc:Bounds x="232" y="192" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Cargar_di" bpmnElement="Task_Cargar">
+        <dc:Bounds x="310" y="175" width="120" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Stock_di" bpmnElement="Task_Stock">
+        <dc:Bounds x="470" y="455" width="120" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gw_Stock_di" bpmnElement="Gw_Stock" isMarkerVisible="true">
+        <dc:Bounds x="635" y="465" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Ofrecer_di" bpmnElement="Task_Ofrecer">
+        <dc:Bounds x="540" y="175" width="120" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Cobrar_di" bpmnElement="Task_Cobrar">
+        <dc:Bounds x="760" y="175" width="120" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Registrar_di" bpmnElement="Task_Registrar">
+        <dc:Bounds x="890" y="450" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Preparar_di" bpmnElement="Task_Preparar">
+        <dc:Bounds x="1060" y="315" width="120" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gw_Merma_di" bpmnElement="Gw_Merma" isMarkerVisible="true">
+        <dc:Bounds x="1225" y="325" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1211" y="303" width="77" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Merma_di" bpmnElement="Task_Merma">
+        <dc:Bounds x="1190" y="455" width="120" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Entregar_di" bpmnElement="Task_Entregar">
+        <dc:Bounds x="1330" y="315" width="120" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_Entregado_di" bpmnElement="End_Entregado">
+        <dc:Bounds x="1502" y="332" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1476" y="383" width="87" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Start_Turno_di" bpmnElement="Start_Turno">
+        <dc:Bounds x="1602" y="192" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1589" y="233" width="62" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Cierre_di" bpmnElement="Task_Cierre">
+        <dc:Bounds x="1680" y="175" width="120" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Ganancia_di" bpmnElement="Task_Ganancia">
+        <dc:Bounds x="1830" y="450" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_Cierre_di" bpmnElement="End_Cierre">
+        <dc:Bounds x="2012" y="472" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Start_Consulta_di" bpmnElement="Start_Consulta">
+        <dc:Bounds x="2112" y="612" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2098" y="656" width="63" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Clave_di" bpmnElement="Task_Clave">
+        <dc:Bounds x="2190" y="595" width="120" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gw_Permiso_di" bpmnElement="Gw_Permiso" isMarkerVisible="true">
+        <dc:Bounds x="2225" y="465" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2208" y="443" width="83" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_Denegado_di" bpmnElement="End_Denegado">
+        <dc:Bounds x="2132" y="472" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2105" y="515" width="89" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Mostrar_di" bpmnElement="Task_Mostrar">
+        <dc:Bounds x="2340" y="455" width="120" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Decidir_di" bpmnElement="Task_Decidir">
+        <dc:Bounds x="2500" y="595" width="120" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_Decision_di" bpmnElement="End_Decision">
+        <dc:Bounds x="2662" y="612" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2659" y="656" width="43" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="F1_di" bpmnElement="F1">
+        <di:waypoint x="268" y="210" />
+        <di:waypoint x="310" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F2_di" bpmnElement="F2">
+        <di:waypoint x="370" y="245" />
+        <di:waypoint x="370" y="490" />
+        <di:waypoint x="470" y="490" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F3_di" bpmnElement="F3">
+        <di:waypoint x="590" y="490" />
+        <di:waypoint x="635" y="490" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F4_di" bpmnElement="F4">
+        <di:waypoint x="660" y="465" />
+        <di:waypoint x="660" y="270" />
+        <di:waypoint x="600" y="270" />
+        <di:waypoint x="600" y="245" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="623" y="253" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F5_di" bpmnElement="F5">
+        <di:waypoint x="540" y="210" />
+        <di:waypoint x="430" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F6_di" bpmnElement="F6">
+        <di:waypoint x="685" y="490" />
+        <di:waypoint x="820" y="490" />
+        <di:waypoint x="820" y="245" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="734" y="465" width="11" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F7_di" bpmnElement="F7">
+        <di:waypoint x="880" y="210" />
+        <di:waypoint x="960" y="210" />
+        <di:waypoint x="960" y="450" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F8_di" bpmnElement="F8">
+        <di:waypoint x="1030" y="490" />
+        <di:waypoint x="1050" y="490" />
+        <di:waypoint x="1050" y="350" />
+        <di:waypoint x="1060" y="350" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F9_di" bpmnElement="F9">
+        <di:waypoint x="1180" y="350" />
+        <di:waypoint x="1225" y="350" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F10_di" bpmnElement="F10">
+        <di:waypoint x="1250" y="375" />
+        <di:waypoint x="1250" y="455" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F11_di" bpmnElement="F11">
+        <di:waypoint x="1190" y="490" />
+        <di:waypoint x="1120" y="490" />
+        <di:waypoint x="1120" y="385" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F12_di" bpmnElement="F12">
+        <di:waypoint x="1275" y="350" />
+        <di:waypoint x="1330" y="350" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F13_di" bpmnElement="F13">
+        <di:waypoint x="1450" y="350" />
+        <di:waypoint x="1502" y="350" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F14_di" bpmnElement="F14">
+        <di:waypoint x="1638" y="210" />
+        <di:waypoint x="1680" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F15_di" bpmnElement="F15">
+        <di:waypoint x="1800" y="210" />
+        <di:waypoint x="1900" y="210" />
+        <di:waypoint x="1900" y="450" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F16_di" bpmnElement="F16">
+        <di:waypoint x="1970" y="490" />
+        <di:waypoint x="2012" y="490" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F17_di" bpmnElement="F17">
+        <di:waypoint x="2148" y="630" />
+        <di:waypoint x="2190" y="630" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F18_di" bpmnElement="F18">
+        <di:waypoint x="2250" y="595" />
+        <di:waypoint x="2250" y="515" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F19_di" bpmnElement="F19">
+        <di:waypoint x="2225" y="490" />
+        <di:waypoint x="2168" y="490" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F20_di" bpmnElement="F20">
+        <di:waypoint x="2275" y="490" />
+        <di:waypoint x="2340" y="490" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F21_di" bpmnElement="F21">
+        <di:waypoint x="2400" y="525" />
+        <di:waypoint x="2400" y="630" />
+        <di:waypoint x="2500" y="630" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="F22_di" bpmnElement="F22">
+        <di:waypoint x="2620" y="630" />
+        <di:waypoint x="2662" y="630" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="M1_di" bpmnElement="M1">
+        <di:waypoint x="250" y="100" />
+        <di:waypoint x="250" y="192" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="263" y="113" width="34" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="M2_di" bpmnElement="M2">
+        <di:waypoint x="820" y="100" />
+        <di:waypoint x="820" y="175" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="823" y="113" width="25" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="M3_di" bpmnElement="M3">
+        <di:waypoint x="1390" y="315" />
+        <di:waypoint x="1390" y="100" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1402" y="198" width="56" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
