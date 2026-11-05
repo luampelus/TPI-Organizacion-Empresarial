@@ -1,6 +1,8 @@
 # Proceso de venta, merma y cierre (BPMN)
 
-![Diagrama BPMN](proceso-venta-merma-cierre.png)
+![Diagrama BPMN](bpmn.svg)
+
+Versión final ajustada a mano en [bpmn.io](https://demo.bpmn.io). El archivo editable es [`proceso-venta-merma-cierre.bpmn`](proceso-venta-merma-cierre.bpmn); se puede abrir en bpmn.io arrastrándolo a la página. La imagen `proceso-venta-merma-cierre.png` es el borrador de la Entrega N.º 4.
 
 ## Participantes
 

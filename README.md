@@ -33,8 +33,8 @@ La próxima etapa, planificada en la Entrega N.º 2, agrega:
 
 | Carpeta / archivo | Contenido |
 |---|---|
-| [`docs/entregas/`](docs/entregas/) | Entregas N.º 1, 2 y 3 en PDF |
-| [`docs/bpmn/`](docs/bpmn/) | Diagrama BPMN del proceso de venta, merma y cierre |
+| [`docs/entregas/`](docs/entregas/) | Entregas N.º 1, 2 y 3 en PDF y la **versión final consolidada** del TPI |
+| [`docs/bpmn/`](docs/bpmn/) | Diagrama BPMN del proceso de venta, merma y cierre (imagen y archivo `.bpmn` editable) |
 | [`docs/backlog/historias-de-usuario.md`](docs/backlog/historias-de-usuario.md) | Las tres historias de usuario del tablero |
 | [`docs/control/indicadores.md`](docs/control/indicadores.md) | Indicadores de control y estándares de desempeño |
 
@@ -46,6 +46,7 @@ La próxima etapa, planificada en la Entrega N.º 2, agrega:
 | N.º 2 | Diagnóstico y planeación | FODA, objetivo y metas medibles (M1 a M6), Gantt de 8 semanas |
 | N.º 3 | Estructura formal y diseño de datos | Organigrama y diccionario de datos (5 entidades) |
 | N.º 4 | Procesos, trabajo colaborativo y control | BPMN, este repositorio, tablero ágil e indicadores de control |
+| Final | TPI consolidado | Las cuatro partes en un solo documento, con las observaciones de la tutoría incorporadas |
 
 ## Forma de trabajo en el repositorio
 
